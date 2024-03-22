@@ -23,3 +23,4 @@ This cluster can be deployed on either Vagrant and AWS.  A CloudFormation templa
 For AWS deployment:  start at `AWS/HOWTO.TXT`, which will guide you through other text files documenting the various steps to set up the cluster and the application on AWS.
 
 For Vagrant deployment:  start at `Vagrant/HOWTO.TXT`, again following the pointers to other text files and scripts.
+# swarm-to-k8s

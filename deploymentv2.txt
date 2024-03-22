@@ -1,0 +1,183 @@
+# Kubernetes Deployment for web-vote-app
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-vote-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-vote-app
+  template:
+    metadata:
+      labels:
+        app: web-vote-app
+    spec:
+      containers:
+      - name: web-vote-app
+        image: ray117/swarm-microservice-demo-v1-web-vote-app:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: WEB_VOTE_NUMBER
+          value: "01"
+        - name: constraint:node
+          value: "=frontend01"
+
+---
+
+# Kubernetes Service for web-vote-app
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-vote-app
+spec:
+  type: NodePort
+  ports:
+  - port: 8081
+    targetPort: 80
+  selector:
+    app: web-vote-app
+
+---
+
+# Kubernetes Deployment for vote-worker
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vote-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vote-worker
+  template:
+    metadata:
+      labels:
+        app: vote-worker
+    spec:
+      containers:
+      - name: vote-worker
+        image: ray117/swarm-microservice-demo-v1-vote-worker:latest
+        env:
+        - name: FROM_REDIS_HOST
+          value: "1"
+        - name: TO_REDIS_HOST
+          value: "1"
+
+---
+
+# Kubernetes Deployment for results-app
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: results-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: results-app
+  template:
+    metadata:
+      labels:
+        app: results-app
+    spec:
+      containers:
+      - name: results-app
+        image: ray117/swarm-microservice-demo-v1-results-app:latest
+        ports:
+        - containerPort: 80
+
+---
+
+# Kubernetes Service for results-app
+apiVersion: v1
+kind: Service
+metadata:
+  name: results-app
+spec:
+  type: NodePort
+  ports:
+  - port: 8082
+    targetPort: 80
+  selector:
+    app: results-app
+
+---
+
+# Kubernetes Deployment for redis01
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis01
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis01
+  template:
+    metadata:
+      labels:
+        app: redis01
+    spec:
+      containers:
+      - name: redis01
+        image: ray117/redis:3
+        ports:
+        - containerPort: 6379
+
+---
+
+# Kubernetes Service for redis01
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis01
+spec:
+  type: NodePort
+  ports:
+  - port: 6379
+    targetPort: 6379
+  selector:
+    app: redis01
+
+---
+
+# Kubernetes Deployment for store
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: store
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: store
+  template:
+    metadata:
+      labels:
+        app: store
+    spec:
+      containers:
+      - name: store
+        image: ray117/postgres:9.5
+        env:
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: pg8675309
+
+---
+
+# Kubernetes Service for store
+apiVersion: v1
+kind: Service
+metadata:
+  name: store
+spec:
+  type: NodePort
+  ports:
+  - port: 5432
+    targetPort: 5432
+  selector:
+    app: store
