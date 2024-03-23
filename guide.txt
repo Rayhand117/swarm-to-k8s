@@ -28,6 +28,7 @@ curl -LO https://github.com/containernetworking/plugins/releases/download/v1.4.1
 tar -xvf cni-plugins-linux-amd64-v1.4.1.tgz
 sudo mkdir -p /opt/cni/bin
 sudo mv ./bridge ./host-local ./loopback /opt/cni/bin
+sudo mv ./LICENSE ./host-device ./dummy . /README. md ./firewall ./macvlan ./bridge ./dhcp ./bandwidth ./tuning ./vlan ./ipvlan ./ptp ./static ./loopback ./tap ./host-local . /sbr ./portmap ./vrf /opt/cni/bin
 
 chmod +x kubectl kubeadm
 sudo mv kubectl kubeadm /usr/local/bin/
