@@ -20,6 +20,7 @@ sudo apt update
 sudo apt install kubeadm kubelet kubectl kubernetes-cni -y
 
 # USE THESE IF FAIL: build kubernetes cluster only having master node
+sudo apt-add-repository --remove "deb http://apt.kubernetes.io/ kubernetes-xenial main"
 curl -LO https://dl.k8s.io/release/v1.29.3/bin/linux/amd64/kubectl
 curl -LO https://dl.k8s.io/release/v1.29.3/bin/linux/amd64/kubeadm
 curl -LO https://dl.k8s.io/release/v1.29.3/bin/linux/amd64/kubelet
