@@ -17,18 +17,20 @@ db_server = "redis%s" % os.environ['WEB_VOTE_NUMBER']
 redis = connect_to_redis(db_server)
 app = Flask(__name__)
 
+
 @app.route("/env", methods=['GET'])
 def dump_env():
     s = ''
     for key in os.environ.keys():
-        s = "%s%30s=%s\n" % (s, key,os.environ[key])
+        s = "%s%30s = %s\n" % (s, key, os.environ[key])
     resp = make_response(render_template(
         'env.html',
         s=s
     ))
     return resp
 
-@app.route("/", methods=['POST','GET'])
+
+@app.route("/", methods=['POST', 'GET'])
 def index():
     voter_id = request.cookies.get('voter_id')
     if not voter_id:
@@ -38,7 +40,7 @@ def index():
 
     if request.method == 'POST':
         vote = request.form['vote']
-        epoch_time_ms = int(time.time()*1000)  # replaced long with int
+        epoch_time_ms = int(time.time() * 1000)  # replaced long with int
         data = json.dumps({'voter_id': voter_id, 'vote': vote, 'ts': epoch_time_ms})
         redis.rpush('votes', data)
 
