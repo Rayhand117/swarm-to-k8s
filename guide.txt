@@ -1,0 +1,30 @@
+Disable VM Swap allow kubelet function correctly
+sudo swapoff -a
+sudo micro /etc/fstab
+#/swap.img
+
+sudo apt install docker.io -y
+sudo apt install apt-transport-https curl -y
+
+# repo key for download & install k8s
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
+# add k9s repo
+sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+sudo apt update
+sudo apt install kubeadm kubelet kubectl kubernetes-cni -y
+# build kubernetes cluster only having master node
+
+sudo kubeadm init #master
+# copy kubeadm join 16..... paste to worker nodes to join k8s cluster on kmaster node
+
+kubectl get pods -A
+kubectl get nodes # master
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+kubectl get nodes
+# status not ready
+# deploy calico
+kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+kubectl get nodes
+# status ready on 3 nodes and it's time to deploy pods
