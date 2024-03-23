@@ -10,6 +10,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: python:3.9-slim
 
     steps:
       - name: Checkout
@@ -29,10 +31,6 @@ jobs:
 
       - name: Run Docker Compose
         run: docker-compose up -d
-
-      - name: Print requirements.txt
-        run: cat requirements.txt
-        working-directory: web-vote-app
 
       - name: Install dependencies
         run: |
