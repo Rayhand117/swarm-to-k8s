@@ -1,5 +1,6 @@
 # third is control plane
 
+# ubuntusecond
 sudo microk8s add-node
 From the node you wish to join to this cluster, run the following:
 microk8s join 192.168.1.10:25000/5f912ea23847d2e8aa2d1755e5c68a38/75268e6c1b30
@@ -10,6 +11,18 @@ microk8s join 192.168.1.10:25000/5f912ea23847d2e8aa2d1755e5c68a38/75268e6c1b30 -
 If the node you are adding is not reachable through the default interface you can use one of the following:
 microk8s join 192.168.1.10:25000/5f912ea23847d2e8aa2d1755e5c68a38/75268e6c1b30
 microk8s join 172.17.0.1:25000/5f912ea23847d2e8aa2d1755e5c68a38/75268e6c1b30
+
+# ubuntuthird
+sudo microk8s add-node
+From the node you wish to join to this cluster, run the following:
+microk8s join 192.168.1.10:25000/430d6d79606025ca789ea7076c2d6cb5/75268e6c1b30
+
+Use the ' -- worker' flag to join a node as a worker not running the control plane, eg:
+microk8s join 192.168.1.10:25000/430d6d79606025ca789ea7076c2d6cb5/75268e6c1b30 --worker
+
+If the node you are adding is not reachable through the default interface you can use one of the following:
+microk8s join 192.168.1.10:25000/430d6d79606025ca789ea7076c2d6cb5/75268e6c1b30
+microk8s join 172.17.0.1:25000/430d6d79606025ca789ea7076c2d6cb5/75268e6c1b30
 
 sudo iptables -P FORWARD ACCEPT
 
