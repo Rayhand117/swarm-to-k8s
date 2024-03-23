@@ -14,13 +14,18 @@ sudo apt install apt-transport-https curl -y
 
 # repo key for download & install k8s
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
-# add k9s repo
+# add k8s repo
 sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
 sudo apt update
 sudo apt install kubeadm kubelet kubectl kubernetes-cni -y
-# build kubernetes cluster only having master node
+
+# USE THESE IF FAIL: build kubernetes cluster only having master node
 curl -LO https://dl.k8s.io/release/v1.29.3/bin/linux/amd64/kubectl
 curl -LO https://dl.k8s.io/release/v1.29.3/bin/linux/amd64/kubeadm
+
+chmod +x kubectl kubeadm
+sudo mv kubectl kubeadm /usr/local/bin/
+sudo apt install kubelet kubernetes-cni -y
 
 sudo kubeadm init #master
 # copy kubeadm join 16..... paste to worker nodes to join k8s cluster on kmaster node
