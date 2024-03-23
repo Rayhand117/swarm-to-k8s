@@ -24,7 +24,7 @@ sudo apt-add-repository --remove "deb http://apt.kubernetes.io/ kubernetes-xenia
 curl -LO https://dl.k8s.io/release/v1.29.3/bin/linux/amd64/kubectl
 curl -LO https://dl.k8s.io/release/v1.29.3/bin/linux/amd64/kubeadm
 curl -LO https://dl.k8s.io/release/v1.29.3/bin/linux/amd64/kubelet
-curl -LO https://dl.k8s.io/release/v1.29.3/bin/linux/amd64/kubernetes-cni
+curl -LO https://github.com/containernetworking/plugins/releases/download/v1.4.1/cni-plugins-linux-amd64-v1.4.1.tgz
 
 chmod +x kubectl kubeadm
 sudo mv kubectl kubeadm /usr/local/bin/
