@@ -30,9 +30,20 @@ sudo mkdir -p /opt/cni/bin
 sudo mv ./LICENSE ./host-device ./dummy ./README.md ./firewall ./macvlan ./bridge ./dhcp ./bandwidth ./tuning ./vlan ./ipvlan ./ptp ./static ./loopback ./tap ./host-local ./sbr ./portmap ./vrf /opt/cni/bin
 -$ tar -xvf cni-plugins-linux-amd64-v1.4.1. tgz
 
-chmod +x kubectl kubeadm
-sudo mv kubectl kubeadm /usr/local/bin/
-sudo apt install kubelet kubernetes-cni -y
+chmod +x kubectl kubeadm kubelet
+sudo mv kubectl kubeadm kubelet /usr/local/bin/
+
+dpkg -s apt-transport-https
+dpkg -s docker.io
+sudo systemctl is-active docker
+sudo systemctl start docker
+kubeadm version
+kubelet --version
+kubectl version
+sudo systemctl is-active kubelet
+sudo systemctl start kubelet
+dpkg -s kubernetes-cni
+ls /opt/cni/bin
 
 sudo kubeadm init #master
 # copy kubeadm join 16..... paste to worker nodes to join k8s cluster on kmaster node
