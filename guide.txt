@@ -22,6 +22,7 @@ sudo apt install kubeadm kubelet kubectl kubernetes-cni -y
 # USE THESE IF FAIL: build kubernetes cluster only having master node
 curl -LO https://dl.k8s.io/release/v1.29.3/bin/linux/amd64/kubectl
 curl -LO https://dl.k8s.io/release/v1.29.3/bin/linux/amd64/kubeadm
+curl -LO https://dl.k8s.io/release/v1.29.3/bin/linux/amd64/kubernetes-cni
 
 chmod +x kubectl kubeadm
 sudo mv kubectl kubeadm /usr/local/bin/
