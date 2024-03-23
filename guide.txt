@@ -25,6 +25,9 @@ curl -LO https://dl.k8s.io/release/v1.29.3/bin/linux/amd64/kubectl
 curl -LO https://dl.k8s.io/release/v1.29.3/bin/linux/amd64/kubeadm
 curl -LO https://dl.k8s.io/release/v1.29.3/bin/linux/amd64/kubelet
 curl -LO https://github.com/containernetworking/plugins/releases/download/v1.4.1/cni-plugins-linux-amd64-v1.4.1.tgz
+tar -xvf cni-plugins-linux-amd64-v1.4.1.tgz
+sudo mkdir -p /opt/cni/bin
+sudo mv ./bridge ./host-local ./loopback /opt/cni/bin
 
 chmod +x kubectl kubeadm
 sudo mv kubectl kubeadm /usr/local/bin/
