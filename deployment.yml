@@ -38,7 +38,7 @@ spec:
     - protocol: TCP
       port: 6379
       targetPort: 6379
-      nodePort: 36379
+      nodePort: 30679
 ---
 apiVersion: apps/v1
 kind: Deployment
