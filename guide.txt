@@ -19,6 +19,8 @@ sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
 sudo apt update
 sudo apt install kubeadm kubelet kubectl kubernetes-cni -y
 # build kubernetes cluster only having master node
+curl -LO https://dl.k8s.io/release/v1.29.3/bin/linux/amd64/kubectl
+curl -LO https://dl.k8s.io/release/v1.29.3/bin/linux/amd64/kubeadm
 
 sudo kubeadm init #master
 # copy kubeadm join 16..... paste to worker nodes to join k8s cluster on kmaster node
