@@ -1,3 +1,35 @@
+RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
+cd /usr/local/bin
+sudo curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/amd64/{kubeadm,kubelet,kubectl}
+sudo chmod +x {kubeadm,kubelet,kubectl}
+
+# Download CNI plugins and install
+CNI_VERSION="v0.8.2"
+ARCH="amd64"
+sudo mkdir -p /opt/cni/bin
+curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-${ARCH}-${CNI_VERSION}.tgz" | sudo tar -C /opt/cni/bin -xz
+
+# Create a kubelet systemd service
+cat <<EOF | sudo tee /etc/systemd/system/kubelet.service
+[Unit]
+Description=Kubelet
+Documentation=https://kubernetes.io/docs/home/
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/kubelet
+Restart=always
+StartLimitInterval=0
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# Enable and start kubelet
+sudo systemctl enable kubelet && sudo systemctl start kubelet
+
 code ~/.bashrc
 
 PS1="\[\e[0;32m\]┌──(\[\e[m\]\[\e[0;33m\]\u@\h\[\e[m\]\[\e[0;32m\])-\[\e[m\]\[\e[1;34m\][\w]\[\e[m\]\[\e[0;32m\]\n\[\e[m\]\[\e[0;32m\]└─\$\[\e[m\] "
