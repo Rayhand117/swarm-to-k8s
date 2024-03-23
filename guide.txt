@@ -1,3 +1,17 @@
+# third is control plane
+
+sudo microk8s add-node
+From the node you wish to join to this cluster, run the following:
+microk8s join 192.168.1.10:25000/77c43a7b4f91598c4d01aaa13ebfff69/75268e6c1b30
+
+Use the ' -- worker' flag to join a node as a worker not running the control plane, eg:
+microk8s join 192.168.1.10:25000/77c43a7b4f91598c4d01aaa13ebfff69/75268e6c1b30 -- worker
+
+If the node you are adding is not reachable through the default interface you can use one of the following:
+microk8s join 192.168.1.10:25000/77c43a7b4f91598c4d01aaa13ebfff69/75268e6c1b30
+microk8s join 172.17.0.1:25000/77c43a7b4f91598c4d01aaa13ebfff69/75268e6c1b30
+
+
 RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
 cd /usr/local/bin
 sudo curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/amd64/{kubeadm,kubelet,kubectl}
