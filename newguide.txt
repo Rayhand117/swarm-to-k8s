@@ -1,0 +1,22 @@
+# third is control plane
+
+sudo microk8s add-node
+From the node you wish to join to this cluster, run the following:
+microk8s join 192.168.1.10:25000/77c43a7b4f91598c4d01aaa13ebfff69/75268e6c1b30
+
+Use the ' -- worker' flag to join a node as a worker not running the control plane, eg:
+microk8s join 192.168.1.10:25000/77c43a7b4f91598c4d01aaa13ebfff69/75268e6c1b30 --worker
+
+If the node you are adding is not reachable through the default interface you can use one of the following:
+microk8s join 192.168.1.10:25000/77c43a7b4f91598c4d01aaa13ebfff69/75268e6c1b30
+microk8s join 172.17.0.1:25000/77c43a7b4f91598c4d01aaa13ebfff69/75268e6c1b30
+
+sudo iptables -P FORWARD ACCEPT
+
+sudo apt-get install iptables-persistent
+
+echo '{ "insecure-registries" : ["localhost:32000"] }' | sudo tee /etc/docker/daemon.json
+sudo systemctl restart docker
+
+echo fs.inotify.max_user_watches=1048576 | sudo tee -a /etc/sysctl.conf
+sudo sysctl --system
