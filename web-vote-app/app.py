@@ -38,8 +38,8 @@ def index():
 
     if request.method == 'POST':
         vote = request.form['vote']
-	epoch_time_ms = long(time.time()*1000)
-	data = json.dumps({'voter_id': voter_id, 'vote': vote, 'ts': epoch_time_ms})
+        epoch_time_ms = long(time.time()*1000)
+        data = json.dumps({'voter_id': voter_id, 'vote': vote, 'ts': epoch_time_ms})
         redis.rpush('votes', data)
 
     resp = make_response(render_template(
@@ -47,7 +47,7 @@ def index():
         option_a=option_a,
         option_b=option_b,
         hostname=hostname,
-	node="web%s" % os.environ['WEB_VOTE_NUMBER'],
+	    node="web%s" % os.environ['WEB_VOTE_NUMBER'],
         vote=vote,
     ))
     resp.set_cookie('voter_id', voter_id)
