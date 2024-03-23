@@ -23,8 +23,8 @@ def dump_env():
     for key in os.environ.keys():
         s = "%s%30s=%s\n" % (s, key,os.environ[key])
     resp = make_response(render_template(
-	    'env.html',
-	    s=s
+        'env.html',
+        s=s
     ))
     return resp
 
@@ -38,7 +38,7 @@ def index():
 
     if request.method == 'POST':
         vote = request.form['vote']
-        epoch_time_ms = long(time.time()*1000)
+        epoch_time_ms = int(time.time()*1000)  # replaced long with int
         data = json.dumps({'voter_id': voter_id, 'vote': vote, 'ts': epoch_time_ms})
         redis.rpush('votes', data)
 
@@ -47,7 +47,7 @@ def index():
         option_a=option_a,
         option_b=option_b,
         hostname=hostname,
-	    node="web%s" % os.environ['WEB_VOTE_NUMBER'],
+        node="web%s" % os.environ['WEB_VOTE_NUMBER'],
         vote=vote,
     ))
     resp.set_cookie('voter_id', voter_id)
@@ -55,4 +55,4 @@ def index():
 
 
 if __name__ == "__main__":
-	app.run(host='0.0.0.0', port=80, debug=True)
+    app.run(host='0.0.0.0', port=80, debug=True)
