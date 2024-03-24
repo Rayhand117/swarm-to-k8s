@@ -1,6 +1,6 @@
-# third is control plane
+# third is control node
 
-# ubuntusecond
+# ubuntufirst
 sudo microk8s add-node
 From the node you wish to join to this cluster, run the following:
 microk8s join 192.168.1.10:25000/5f912ea23847d2e8aa2d1755e5c68a38/75268e6c1b30
@@ -12,7 +12,7 @@ If the node you are adding is not reachable through the default interface you ca
 microk8s join 192.168.1.10:25000/5f912ea23847d2e8aa2d1755e5c68a38/75268e6c1b30
 microk8s join 172.17.0.1:25000/5f912ea23847d2e8aa2d1755e5c68a38/75268e6c1b30
 
-# ubuntuthird
+# ubuntusecond
 sudo microk8s add-node
 From the node you wish to join to this cluster, run the following:
 microk8s join 192.168.1.10:25000/430d6d79606025ca789ea7076c2d6cb5/75268e6c1b30
