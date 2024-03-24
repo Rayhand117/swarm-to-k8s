@@ -1,0 +1,30 @@
+import os
+from unittest import TestCase
+import sys
+
+# get the directory of the current script
+script_dir = os.path.dirname(os.path.realpath(__file__))
+
+# add the directory of app.py to the Python path
+sys.path.insert(0, os.path.join(script_dir, '../web-vote-app'))
+
+from app import app  # import the Flask application from app.py
+
+class TestAppRoutes(TestCase):
+    """App Routes Tests"""
+
+    def setUp(self):
+        """Runs before each test"""
+        self.app = app
+        self.app.testing = True  # enable testing mode
+        self.client = self.app.test_client()
+        os.environ['WEB_VOTE_NUMBER'] = '1'  # add this line
+
+    def test_dump_env(self):
+        """It should return environment variables"""
+        response = self.client.get("/env")
+        self.assertEqual(response.status_code, 200)
+
+        # Check for some expected environment variables in the response
+        self.assertIn('PATH', response.data.decode())
+        self.assertIn('HOSTNAME', response.data.decode())
