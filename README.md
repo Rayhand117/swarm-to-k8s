@@ -1,3 +1,5 @@
+![Build Status](https://github.com/Rayhand117/swarm-to-k8s/actions/workflows/ci-build.yaml/badge.svg)
+
 # Swarm Example Cluster:  Microservices App
 
 This is a sample Swarm cluster that illustrates how Swarm can be used as the foundation for a high-traffic microservice-architecture web application.  It is based on the Docker Cats-vs-Dogs voting example application, but re-architected to accomodate arbitrarily large scale through the use of parallel vote capture frontends and asynchronous background workers processing each vote.
